@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LNCT Smart Agriculture Crop Recommendation Platform</title>
+    <script src="../static/style.js"></script>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LNCT Smart Agriculture Crop Recommendation Platform 1.0</h1>
+            <button id="documentation-btn">Click here for the Documentation</button>
+        </header>
+        <div class="content">
+            <div class="form-section">
+                <h2>Enter the expected parameters..</h2>
+                <form id="crop-form" action="{{ url_for('predict') }}" method="POST">
+                    <label for="nitrogen">Ratio of Nitrogen content in soil (N):</label>
+                    <input type="number" id="nitrogen" name="nitrogen" placeholder="1-500" required>
+                    
+                    <label for="phosphorus">Ratio of Phosphorous content in soil (P):</label>
+                    <input type="number" id="phosphorus" name="phosphorus" placeholder="1-500" required>
+                    
+                    <label for="potassium">Ratio of Potassium content in soil (K):</label>
+                    <input type="number" id="potassium" name="potassium" placeholder="1-500" required>
+                    
+                    <label for="temperature">Expected Temperature (°C):</label>
+                    <input type="number" id="temperature" name="temperature" placeholder="-50 to 50" required>
+                    
+                    <label for="humidity">Relative humidity (%):</label>
+                    <input type="number" id="humidity" name="humidity" placeholder="0-100" required>
+                    
+                    <label for="ph">Soil pH:</label>
+                    <input type="number" id="ph" name="ph" placeholder="0-14" required step="0.1">
+                    
+                    <label for="rainfall">Expected Rainfall (mm):</label>
+                    <input type="number" id="rainfall" name="rainfall" placeholder="0-1000" required>
+                    
+                    <button type="submit" class="recommend-btn">Recommend</button>
+                </form>
+            </div>
+            <div class="result-section">
+                <h2>Recommended Result</h2>
+                <div id="crop-result">
+                    {% if prediction_text %}
+                        <p>{{ prediction_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="documentation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>LNCT Smart Agriculture Crop Recommendation Platform 1.0 Documentation</h2>
+            <p>This novel cloud-based machine learning-powered crop recommendation platform...</p>
+            <ul>
+                <li><strong>N</strong>: Ratio of Nitrogen content in soil (1-500 PPM)</li>
+                <li><strong>P</strong>: Ratio of Phosphorous content in soil (1-500 PPM)</li>
+                <li><strong>K</strong>: Ratio of Potassium content in soil (1-500 PPM)</li>
+                <li><strong>Temperature</strong>: In °C (-50 to 50)</li>
+                <li><strong>Humidity</strong>: In % (0-100)</li>
+                <li><strong>pH</strong>: pH value of soil (0-14)</li>
+                <li><strong>Rainfall</strong>: In mm (max 1000 mm)</li>
+            </ul>
+            <p>Thank you for using the platform!</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='style.js') }}"></script>
+</body>
+</html>
